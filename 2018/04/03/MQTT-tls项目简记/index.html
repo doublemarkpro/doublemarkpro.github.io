@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic">
+<meta name="description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic  ###环境搭建1.PC端需要安装Paho MQTT C client lib">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mark&#39;s Embedded Life">
 <meta property="og:url" content="http://yoursite.com/2018/04/03/MQTT-tls项目简记/index.html">
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
-<meta property="og:description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic">
+<meta property="og:description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic  ###环境搭建1.PC端需要安装Paho MQTT C client lib">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-03T09:17:03.021Z">
+<meta property="og:updated_time" content="2018-04-04T02:38:36.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mark&#39;s Embedded Life">
-<meta name="twitter:description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic">
+<meta name="twitter:description" content="MQTT-tls项目简记项目设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。参数包括：  MQTT 代理broker地址和端口 设备编号 Tls x509证书 设备数据发布topic 设备log发布topic 设备订阅topic  ###环境搭建1.PC端需要安装Paho MQTT C client lib">
 
 
 
@@ -308,6 +308,7 @@
 <li>设备log发布topic</li>
 <li>设备订阅topic</li>
 </ol>
+<p>###环境搭建<br>1.PC端需要安装Paho MQTT C client library库，由于SSL不包含在库里，需要单独编译OpenSSL并添加进工程。<br>  注意在<a href="https://www.openssl.org/source/官方网站下载1.0.2o.tar.gz文件，否则ms/中没有do_nasm.bat文件。" target="_blank" rel="noopener">https://www.openssl.org/source/官方网站下载1.0.2o.tar.gz文件，否则ms/中没有do_nasm.bat文件。</a><br>2.下载OpenSSL源码，Perl，NASM，运行时提示dmake未安装，ppm install dmake安装中。<br>  打开VS2013 X64本机工具命令提示<br>  运行D:\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat<br>  切到openssl目录下<br>  运行perl Configure VC-WIN64A<br>  运行ms\do_nasm<br>  运行ms\do_win64a<br>  运行nmake  -f  ms\nt.mak<br>  执行、测试：nmake  -f  ms\nt.mak test<br>  检查上一步编译是否成功，如果成功则最后显示“passed all tests”字样<br>  nmake  -f  ms\nt.mak install<br>  成功则会在打印的输出信息里显示了目录路径里生成bin、include、lib、ssl四个文件夹<br>  参考链接<a href="https://geekori.com/details.php?que_id=17199" target="_blank" rel="noopener">https://geekori.com/details.php?que_id=17199</a></p>
 
       
     </div>
@@ -332,8 +333,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/03/MQTTRecord/" rel="next" title="MQTTRecord">
-                <i class="fa fa-chevron-left"></i> MQTTRecord
+              <a href="/2018/04/03/FirtBlog/" rel="next" title="破壳日">
+                <i class="fa fa-chevron-left"></i> 破壳日
               </a>
             
           </div>
@@ -421,7 +422,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -429,15 +430,6 @@
 
             
 
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
-                
-              </div>
             
 
           </nav>
