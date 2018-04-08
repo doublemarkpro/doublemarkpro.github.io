@@ -87,7 +87,7 @@
 <meta property="og:description" content="MQTT-tls项目简记 终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯  #项目设计目的终端采用开放物联网MQT">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cldup.com/dTxpPi9lDf.thumb.png">
-<meta property="og:updated_time" content="2018-04-04T06:21:08.711Z">
+<meta property="og:updated_time" content="2018-04-08T01:52:44.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mark&#39;s Embedded Life">
 <meta name="twitter:description" content="MQTT-tls项目简记 终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯  #项目设计目的终端采用开放物联网MQT">
@@ -328,6 +328,30 @@
 <li>期间在vs2013的link中发现OpenSSLDir的引用，把系统环境变量增加变量OpenSSLDir，变量值是安装目录</li>
 <li>重启vs2013，重新编译paho-mqtt3as和paho-mqtt3cs项目，生成lib成功。</li>
 </ul>
+<h4 id="SSL-TLS证书生成"><a href="#SSL-TLS证书生成" class="headerlink" title="SSL/TLS证书生成"></a>SSL/TLS证书生成</h4><ul>
+<li>生成<br>keytool -genkey -alias mqtt -keyalg RSA -validity 365 -keystore mqtt.keystore<br>别名MQTT的证书、RSA算法、有效期365天，存储为mqtt.keystore格式 库密码mashuang 钥匙密码991110</li>
+<li>查看<br>keytool -list -v -keystore mqtt.keystore -keypass mashuang</li>
+<li>导出<br>keytool -export -alias mqtt -keystore mqtt.keystore -file mqtt.crt -storepass mashuang<br>存储在当前目录下.crt和.cer格式证书</li>
+<li>查看证书<br> keytool -printcert -file mqtt.crt</li>
+</ul>
+<p>设置名称服务器以使用 SSL 的第一步是生成 SSL 密钥库、服务器证书和信任库。您可以使用 Java™ keytool 实用程序来执行这些任务。此实用程序位于 $NCHOME/eWAS/java/jre/bin 目录中。</p>
+<p>过程<br>要生成密钥库，请在命令行提示符处输入以下命令：<br>keytool -genkey -alias ns_server -keyalg RSA -keypass password -storepass<br>password -keystore keystore_server.jks<br>其中，password 是访问密钥库所需的密码。</p>
+<p>keytool 实用程序将提示您输入信息以标识您、您的组织和您的位置，然后在当前工作目录中创建名为 keystore_server.jks 的文件。</p>
+<p>要导出服务器证书，请在命令行提示符处输入以下命令：<br>keytool -export -alias ns_server -file server.cer -storepass password -keystore keystore_server.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
+<p>keytool 实用程序将在当前工作目录中创建名为 server.cer 的服务器证书文件。</p>
+<p>要创建信任库，请在命令行提示符处输入以下命令：<br>keytool -import -alias ns_server -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
+<p>keytool 实用程序将提示您确认信任 server.cer 证书文件，然后在当前工作目录中创建名为 cacerts.jks 的文件。   </p>
+<h4 id="SSL-TLS证书生成-1"><a href="#SSL-TLS证书生成-1" class="headerlink" title="SSL/TLS证书生成"></a>SSL/TLS证书生成</h4><p>在apollo的broker目录下 查看broker证书的信息</p>
+<blockquote>
+<p>F:\MQTT\apache-apollo-1.7.1\bin\broker\etc<br>λ keytool -list -v -keystore keystore -keypass password<br>输入密钥库口令:<br>密钥库类型: JKS<br>密钥库提供方: SUN</p>
+<p>您的密钥库包含 1 个条目</p>
+<p>别名: broker<br>创建日期: 2018-4-8<br>条目类型: PrivateKeyEntry<br>证书链长度: 1<br>证书[1]:<br>所有者: CN=broker<br>发布者: CN=broker<br>序列号: 4b2d2d30<br>有效期为 Sun Apr 08 09:11:34 GMT+08:00 2018 至 Wed Apr 05 09:11:34 GMT+08:00 2028<br>证书指纹:<br>MD5:  73:0B:1E:7F:C5:DD:6A:14:0D:02:65:C9:A9:7A:E8:93<br>SHA1: 1D:40:4C:A4:B6:54:F4:4F:8F:5F:42:A2:84:ED:D9:1D:6C:CF:2E:3E<br>SHA256: F0:61:9E:30:FE:43:BD:8E:4F:D3:8D:EF:1C:88:C2:3D:DE:27:60:7A:3E:9E:C1:F0:58:9F:7D:A1:CF:F5:27:A6<br>签名算法名称: SHA256withRSA<br>主体公共密钥算法: 4096 位 RSA 密钥<br>版本: 3</p>
+<p>扩展:</p>
+<p>#1: ObjectId: 2.5.29.14 Criticality=false<br>SubjectKeyIdentifier [<br>KeyIdentifier [<br>0000: A9 D8 51 69 92 ED C9 D7   44 37 9F 63 7C 79 16 3B  ..Qi….D7.c.y.;<br>0010: D2 41 D3 5C                                        .A.\<br>]<br>]</p>
+<hr>
+<hr>
+<p>Warning:<br>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore -destkeystore keystore -deststoretype pk<br>cs12” 迁移到行业标准格式 PKCS12。</p>
+</blockquote>
 
       
     </div>
@@ -478,7 +502,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MQTT-tls项目简记"><span class="nav-number">1.</span> <span class="nav-text">MQTT-tls项目简记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计思路"><span class="nav-number">1.0.1.</span> <span class="nav-text">设计思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计流程"><span class="nav-number">1.0.2.</span> <span class="nav-text">设计流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PC端设计"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">PC端设计</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MQTT-tls项目简记"><span class="nav-number">1.</span> <span class="nav-text">MQTT-tls项目简记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计思路"><span class="nav-number">1.0.1.</span> <span class="nav-text">设计思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计流程"><span class="nav-number">1.0.2.</span> <span class="nav-text">设计流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PC端设计"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">PC端设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-TLS证书生成"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">SSL/TLS证书生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-TLS证书生成-1"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">SSL/TLS证书生成</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
