@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
 <meta property="og:description" content="终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯  设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T03:39:13.195Z">
+<meta property="og:updated_time" content="2018-04-08T03:48:45.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MQTT_Project">
 <meta name="twitter:description" content="终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯  设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传">
@@ -334,13 +334,6 @@
 <li>导出<br>keytool -export -alias mqtt -keystore mqtt.keystore -file mqtt.crt -storepass mashuang<br>存储在当前目录下.crt和.cer格式证书</li>
 <li>查看证书<br> keytool -printcert -file mqtt.crt</li>
 </ul>
-<p>设置名称服务器以使用 SSL 的第一步是生成 SSL 密钥库、服务器证书和信任库。您可以使用 Java™ keytool 实用程序来执行这些任务。此实用程序位于 $NCHOME/eWAS/java/jre/bin 目录中。</p>
-<p>过程<br>要生成密钥库，请在命令行提示符处输入以下命令：<br>keytool -genkey -alias ns_server -keyalg RSA -keypass password -storepass<br>password -keystore keystore_server.jks<br>其中，password 是访问密钥库所需的密码。</p>
-<p>keytool 实用程序将提示您输入信息以标识您、您的组织和您的位置，然后在当前工作目录中创建名为 keystore_server.jks 的文件。</p>
-<p>要导出服务器证书，请在命令行提示符处输入以下命令：<br>keytool -export -alias ns_server -file server.cer -storepass password -keystore keystore_server.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
-<p>keytool 实用程序将在当前工作目录中创建名为 server.cer 的服务器证书文件。</p>
-<p>要创建信任库，请在命令行提示符处输入以下命令：<br>keytool -import -alias ns_server -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
-<p>keytool 实用程序将提示您确认信任 server.cer 证书文件，然后在当前工作目录中创建名为 cacerts.jks 的文件。   </p>
 <h4 id="测试MQTT-TLS功能"><a href="#测试MQTT-TLS功能" class="headerlink" title="测试MQTT-TLS功能"></a>测试MQTT-TLS功能</h4><h5 id="查看证书信息"><a href="#查看证书信息" class="headerlink" title="查看证书信息"></a>查看证书信息</h5><blockquote>
 <p>F:\MQTT\apache-apollo-1.7.1\bin\broker\etc<br>keytool -list -v -keystore keystore -keypass password<br>输入密钥库口令:<br>密钥库类型: JKS<br>密钥库提供方: SUN</p>
 <p>您的密钥库包含 1 个条目</p>
@@ -349,9 +342,30 @@
 <p>#1: ObjectId: 2.5.29.14 Criticality=false<br>SubjectKeyIdentifier [<br>KeyIdentifier [<br>0000: A9 D8 51 69 92 ED C9 D7   44 37 9F 63 7C 79 16 3B  ..Qi….D7.c.y.;<br>0010: D2 41 D3 5C                                        .A.\<br>]<br>]</p>
 <hr>
 <hr>
-<p>Warning:<br>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore -destkeystore keystore -deststoretype pk<br>cs12” 迁移到行业标准格式 PKCS12。</p>
+<p>Warning:<br>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore -destkeystore keystore -deststoretype pkcs12” 迁移到行业标准格式 PKCS12。</p>
 </blockquote>
-<p> 表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。</p>
+<pre><code>表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。
+使用提示的命令直接生成jks格式的文件
+</code></pre><blockquote>
+<p>keytool -importkeystore -srckeystore keystore -destkeystore keystore.jks -deststoretype jks    </p>
+</blockquote>
+<pre><code>要生成密钥库，请在命令行提示符处输入以下命令：
+</code></pre><blockquote>
+<p>keytool -genkey -alias broker -keyalg RSA -keypass password -storepass password -keystore keystore.jks<br>    其中，password 是访问密钥库所需的密码。</p>
+</blockquote>
+<pre><code>要导出服务器证书，请在命令行提示符处输入以下命令：
+</code></pre><blockquote>
+<p>keytool -export -alias broker -file server.cer -storepass password -keystore keystore.jks<br>    其中，password 是您创建密钥库时指定的密码。</p>
+</blockquote>
+<pre><code>要创建信任库，请在命令行提示符处输入以下命令：
+</code></pre><blockquote>
+<p>keytool -import -alias broker -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>    其中，password 是您创建密钥库时指定的密码。<br>    据此，共生成了3个文件：</p>
+<ul>
+<li>keystore-&gt;keystore.jks</li>
+<li>keystore.jks-&gt;server.cer</li>
+<li>server.cer-&gt;cacerts.jks</li>
+</ul>
+</blockquote>
 <h5 id="建立TLS连接"><a href="#建立TLS连接" class="headerlink" title="建立TLS连接"></a>建立TLS连接</h5><p>  使用MQTT-spy软件，该软件提供java编译版本，可以在安装java的机器上使用。</p>
 
       
