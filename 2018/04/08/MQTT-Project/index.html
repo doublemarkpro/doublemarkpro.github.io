@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://i65.tinypic.com/2z6b01u.png">
 <meta property="og:image" content="http://i68.tinypic.com/14llus1.png">
 <meta property="og:image" content="http://i66.tinypic.com/986fxe.png">
-<meta property="og:updated_time" content="2018-04-08T05:45:51.877Z">
+<meta property="og:updated_time" content="2018-04-08T05:54:55.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MQTT_Project">
 <meta name="twitter:description" content="设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯">
@@ -317,20 +317,35 @@
 </ul>
 <h3 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h3><h4 id="PC端设计"><a href="#PC端设计" class="headerlink" title="PC端设计"></a>PC端设计</h4><ul>
 <li>PC端需要安装Paho MQTT C client library库，由于SSL不包含在库里，所以需要单独编译OpenSSL并添加进工程。注意在<a href="https://www.openssl.org/source/官方网站下载1.0.2o.tar.gz文件，否则ms/中没有do_nasm.bat文件。" target="_blank" rel="noopener">https://www.openssl.org/source/官方网站下载1.0.2o.tar.gz文件，否则ms/中没有do_nasm.bat文件。</a></li>
-<li>下载OpenSSL源码，Perl，NASM，运行时提示dmake未安装，ppm install dmake安装中。<br>打开VS2013 X64本机工具命令提示<br>运行D:\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat<br>切到openssl目录下<br>运行perl Configure VC-WIN64A<br>运行ms\do_nasm<br>运行ms\do_win64a<br>运行nmake  -f  ms\nt.mak<br>执行、测试：nmake  -f  ms\nt.mak test<br>检查上一步编译是否成功，如果成功则最后显示“passed all tests”字样<br>nmake  -f  ms\nt.mak install<br>成功则会在打印的输出信息里显示了目录路径里生成bin、include、lib、ssl四个文件夹<br>参考链接<a href="https://geekori.com/details.php?que_id=17199" target="_blank" rel="noopener">https://geekori.com/details.php?que_id=17199</a></li>
+<li><p>下载OpenSSL源码，Perl，NASM，运行时提示dmake未安装，ppm install dmake安装中。<br>打开VS2013 X64本机工具命令提示<br>运行D:\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat<br>切到openssl目录下<br>运行perl Configure VC-WIN64A<br>运行ms\do_nasm<br>运行ms\do_win64a<br>运行nmake  -f  ms\nt.mak<br>执行、测试：nmake  -f  ms\nt.mak test<br>检查上一步编译是否成功，如果成功则最后显示“passed all tests”字样</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmake  -f  ms\nt.mak install</span><br></pre></td></tr></table></figure>
+<p>成功则会在打印的输出信息里显示了目录路径里生成bin、include、lib、ssl四个文件夹<br>参考链接<a href="https://geekori.com/details.php?que_id=17199" target="_blank" rel="noopener">https://geekori.com/details.php?que_id=17199</a></p>
+</li>
 <li>直接将生成的  libeay32.lib和ssleay32.lib以及WS2_32.lib复制到工程目录下，右键paho-mqtt3as项目-&gt;生成.<br>提示unresolved external symbol SSL_xxxx<br>怀疑是用了64位openssl库导致，回到2重新编译perl Configure VC-WIN32A 提示与机器不符<br>直接openssl官网下载编译好的安装包，找到lib文件夹下对应文件-复制粘贴</li>
 <li>期间在vs2013的link中发现OpenSSLDir的引用，把系统环境变量增加变量OpenSSLDir，变量值是安装目录</li>
 <li>重启vs2013，重新编译paho-mqtt3as和paho-mqtt3cs项目，生成lib成功。</li>
 </ul>
 <h4 id="SSL-TLS证书生成"><a href="#SSL-TLS证书生成" class="headerlink" title="SSL/TLS证书生成"></a>SSL/TLS证书生成</h4><p>  用于生成自用的自签名证书和密钥库以及信任库。</p>
 <ul>
-<li>生成<br>keytool -genkey -alias mqtt -keyalg RSA -validity 365 -keystore mqtt.keystore<br>别名MQTT的证书、RSA算法、有效期365天，存储为mqtt.keystore格式 库密码mashuang 钥匙密码991110</li>
-<li>查看<br>keytool -list -v -keystore mqtt.keystore -keypass mashuang</li>
-<li>导出<br>keytool -export -alias mqtt -keystore mqtt.keystore -file mqtt.crt -storepass mashuang<br>存储在当前目录下.crt和.cer格式证书</li>
-<li>查看证书<br> keytool -printcert -file mqtt.crt</li>
+<li><p>生成</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -<span class="built_in">alias</span> mqtt -keyalg RSA -validity 365 -keystore mqtt.keystore</span><br></pre></td></tr></table></figure>
+<p>别名MQTT的证书、RSA算法、有效期365天，存储为mqtt.keystore格式 库密码mashuang 钥匙密码991110</p>
+</li>
+<li><p>查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore mqtt.keystore -keypass mashuang</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="built_in">export</span> -<span class="built_in">alias</span> mqtt -keystore mqtt.keystore -file mqtt.crt -storepass mashuang</span><br></pre></td></tr></table></figure>
+<p>存储在当前目录下.crt和.cer格式证书</p>
+</li>
+<li>查看证书<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -file mqtt.crt</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="测试MQTT-TLS功能"><a href="#测试MQTT-TLS功能" class="headerlink" title="测试MQTT-TLS功能"></a>测试MQTT-TLS功能</h4><h5 id="查看证书信息"><a href="#查看证书信息" class="headerlink" title="查看证书信息"></a>查看证书信息</h5><blockquote>
-<p>F:\MQTT\apache-apollo-1.7.1\bin\broker\etc<br>keytool -list -v -keystore keystore -keypass password<br>输入密钥库口令:<br>密钥库类型: JKS<br>密钥库提供方: SUN</p>
+<p>F:\MQTT\apache-apollo-1.7.1\bin\broker\etc<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore keystore -keypass password</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>输入密钥库口令:<br>密钥库类型: JKS<br>密钥库提供方: SUN</p>
 <p>您的密钥库包含 1 个条目</p>
 <p>别名: broker<br>创建日期: 2018-4-8<br>条目类型: PrivateKeyEntry<br>证书链长度: 1<br>证书[1]:<br>所有者: CN=broker<br>发布者: CN=broker<br>序列号: 4b2d2d30<br>有效期为 Sun Apr 08 09:11:34 GMT+08:00 2018 至 Wed Apr 05 09:11:34 GMT+08:00 2028<br>证书指纹:<br>MD5:  73:0B:1E:7F:C5:DD:6A:14:0D:02:65:C9:A9:7A:E8:93<br>SHA1: 1D:40:4C:A4:B6:54:F4:4F:8F:5F:42:A2:84:ED:D9:1D:6C:CF:2E:3E<br>SHA256: F0:61:9E:30:FE:43:BD:8E:4F:D3:8D:EF:1C:88:C2:3D:DE:27:60:7A:3E:9E:C1:F0:58:9F:7D:A1:CF:F5:27:A6<br>签名算法名称: SHA256withRSA<br>主体公共密钥算法: 4096 位 RSA 密钥<br>版本: 3</p>
 <p>扩展:</p>
@@ -339,27 +354,18 @@
 <hr>
 <p>Warning:<br>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore -destkeystore keystore -deststoretype pkcs12” 迁移到行业标准格式 PKCS12。</p>
 </blockquote>
-<p>表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。<br>使用提示的命令直接生成jks格式的文件</p>
-<blockquote>
-<p>keytool -importkeystore -srckeystore keystore -destkeystore keystore.jks -deststoretype jks    </p>
-</blockquote>
-<p>要生成密钥库，请在命令行提示符处输入以下命令：</p>
-<blockquote>
-<p>keytool -genkey -alias broker -keyalg RSA -keypass password -storepass password -keystore keystore.jks<br>其中，password 是访问密钥库所需的密码。</p>
-</blockquote>
-<p>要导出服务器证书，请在命令行提示符处输入以下命令：</p>
-<blockquote>
-<p>keytool -export -alias broker -file server.cer -storepass password -keystore keystore.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
-</blockquote>
-<p>要创建信任库，请在命令行提示符处输入以下命令：</p>
-<blockquote>
-<p>keytool -import -alias broker -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>其中，password 是您创建密钥库时指定的密码。<br>据此，共生成了3个文件：</p>
+<p>表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。<br>使用提示的命令直接生成jks格式的文件<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -importkeystore -srckeystore keystore -destkeystore keystore.jks -deststoretype jks</span><br></pre></td></tr></table></figure></p>
+<p>要生成密钥库，请在命令行提示符处输入以下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -<span class="built_in">alias</span> broker -keyalg RSA -keypass password -storepass password -keystore keystore.jks</span><br></pre></td></tr></table></figure></p>
+<p>其中，password 是访问密钥库所需的密码。</p>
+<p>要导出服务器证书，请在命令行提示符处输入以下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="built_in">export</span> -<span class="built_in">alias</span> broker -file server.cer -storepass password -keystore keystore.jks</span><br></pre></td></tr></table></figure></p>
+<p>其中，password 是您创建密钥库时指定的密码。</p>
+<p>要创建信任库，请在命令行提示符处输入以下命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -<span class="built_in">alias</span> broker -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks</span><br></pre></td></tr></table></figure></p>
+<p>其中，password 是您创建密钥库时指定的密码。<br>据此，共生成了3个文件：</p>
 <ul>
 <li>keystore-&gt;keystore.jks</li>
 <li>keystore.jks-&gt;server.cer</li>
 <li>server.cer-&gt;cacerts.jks</li>
 </ul>
-</blockquote>
 <h5 id="建立TLS连接"><a href="#建立TLS连接" class="headerlink" title="建立TLS连接"></a>建立TLS连接</h5><p>  使用MQTT-spy软件，该软件提供java编译版本，可以在安装java的机器上使用。<br>  <img src="http://i65.tinypic.com/2z6b01u.png" alt="Server" title="MQTT-spy设置界面"><br>  连接成功后分别发布和订阅同一主题，测试成功。<br>  <img src="http://i68.tinypic.com/14llus1.png" alt="Server" title="MQTT-spy测试成功界面"><br>  在apollo的127.0.0.1:61613的web界面查看已连接的客户端。<br>  <img src="http://i66.tinypic.com/986fxe.png" alt="Server" title="Apollo的web界面"></p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>  至此，整个MQTT-TLS的测试流程介绍完毕，下面该利用编译好的各类库编写代码实现应用层的功能了。</p>
 
