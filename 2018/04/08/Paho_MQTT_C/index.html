@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
 <meta property="og:description" content="Paho_MQTT_C_Library库下几个比较重要的函数：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ss">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T07:22:29.210Z">
+<meta property="og:updated_time" content="2018-04-08T08:18:00.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paho_MQTT_C">
 <meta name="twitter:description" content="Paho_MQTT_C_Library库下几个比较重要的函数：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ss">
@@ -316,8 +316,222 @@
 <li>privateKey是私钥，如果sslKeyStore没有</li>
 <li>privateKeyPassword是私钥的密码</li>
 <li>enabledCipherSuites是否启用匿名连接</li>
-<li>enableServerCertAuth是否启用服务器证书验证</li>
+<li>enableServerCertAuth是否启用服务器证书验证<br>再看几个结构体<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">	char* clientID;					      /**&lt; the string id of the client */</span><br><span class="line">	const char* username;					/**&lt; MQTT v3.1 user name */</span><br><span class="line">	int passwordlen;              /**&lt; MQTT password length */</span><br><span class="line">	const void* password;					/**&lt; MQTT v3.1 binary password */</span><br><span class="line">	unsigned int cleansession : 1;	/**&lt; MQTT clean session flag */</span><br><span class="line">	unsigned int connected : 1;		/**&lt; whether it is currently connected */</span><br><span class="line">	unsigned int good : 1; 			  /**&lt; <span class="keyword">if</span> we have an error on the socket we turn this off */</span><br><span class="line">	unsigned int ping_outstanding : 1;</span><br><span class="line">	int connect_state : 4;</span><br><span class="line">	networkHandles net;</span><br><span class="line">	int msgID;</span><br><span class="line">	int keepAliveInterval;</span><br><span class="line">	int retryInterval;</span><br><span class="line">	int maxInflightMessages;</span><br><span class="line">	willMessages* will;</span><br><span class="line">	List* inboundMsgs;</span><br><span class="line">	List* outboundMsgs;				/**&lt; <span class="keyword">in</span> flight */</span><br><span class="line">	List* messageQueue;</span><br><span class="line">	unsigned int qentry_seqno;</span><br><span class="line">	void* phandle;  /* the persistence handle */</span><br><span class="line">	MQTTClient_persistence* persistence; /* a persistence implementation */</span><br><span class="line">	void* context; /* calling context - used when calling disconnect_internal */</span><br><span class="line">	int MQTTVersion;</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">	MQTTClient_SSLOptions *sslopts;</span><br><span class="line">	SSL_SESSION* session;    /***&lt; SSL session pointer <span class="keyword">for</span> fast handhake */</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">&#125; Clients;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>其中包含的MQTTClient_SSLOptions结构体正是需要SSL连接时用到的证书类的结构体，这里结构体指针为sslopts。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">	char* serverURI;</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">	int ssl;</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">	Clients* c;</span><br><span class="line">	MQTTClient_connectionLost* cl;</span><br><span class="line">	MQTTClient_messageArrived* ma;</span><br><span class="line">	MQTTClient_deliveryComplete* dc;</span><br><span class="line">	void* context;</span><br><span class="line"></span><br><span class="line">	sem_type connect_sem;</span><br><span class="line">	int rc; /* getsockopt <span class="built_in">return</span> code <span class="keyword">in</span> connect */</span><br><span class="line">	sem_type connack_sem;</span><br><span class="line">	sem_type suback_sem;</span><br><span class="line">	sem_type unsuback_sem;</span><br><span class="line">	MQTTPacket* pack;</span><br><span class="line"></span><br><span class="line">&#125; MQTTClients;</span><br></pre></td></tr></table></figure></p>
+<p>static int MQTTClient_connectURI(MQTTClient handle, MQTTClient_connectOptions<em> options, const char</em> serverURI)<br>{<br>    MQTTClients* m = handle;<br>    START_TIME_TYPE start;<br>    long millisecsTimeout = 30000L;<br>    int rc = SOCKET_ERROR;<br>    int MQTTVersion = 0;</p>
+<pre><code>FUNC_ENTRY;
+millisecsTimeout = options-&gt;connectTimeout * 1000;
+start = MQTTClient_start_clock();
+
+m-&gt;c-&gt;keepAliveInterval = options-&gt;keepAliveInterval;
+setRetryLoopInterval(options-&gt;keepAliveInterval);
+m-&gt;c-&gt;cleansession = options-&gt;cleansession;
+m-&gt;c-&gt;maxInflightMessages = (options-&gt;reliable) ? 1 : 10;
+
+if (m-&gt;c-&gt;will)
+{
+    free(m-&gt;c-&gt;will-&gt;payload);
+    free(m-&gt;c-&gt;will-&gt;topic);
+    free(m-&gt;c-&gt;will);
+    m-&gt;c-&gt;will = NULL;
+}
+
+if (options-&gt;will &amp;&amp; (options-&gt;will-&gt;struct_version == 0 || options-&gt;will-&gt;struct_version == 1))
+{
+    const void* source = NULL;
+
+    m-&gt;c-&gt;will = malloc(sizeof(willMessages));
+    if (options-&gt;will-&gt;message || (options-&gt;will-&gt;struct_version == 1 &amp;&amp; options-&gt;will-&gt;payload.data))
+    {
+        if (options-&gt;will-&gt;struct_version == 1 &amp;&amp; options-&gt;will-&gt;payload.data)
+        {
+            m-&gt;c-&gt;will-&gt;payloadlen = options-&gt;will-&gt;payload.len;
+            source = options-&gt;will-&gt;payload.data;
+        }
+        else
+        {
+            m-&gt;c-&gt;will-&gt;payloadlen = strlen(options-&gt;will-&gt;message);
+            source = (void*)options-&gt;will-&gt;message;
+        }
+        m-&gt;c-&gt;will-&gt;payload = malloc(m-&gt;c-&gt;will-&gt;payloadlen);
+        memcpy(m-&gt;c-&gt;will-&gt;payload, source, m-&gt;c-&gt;will-&gt;payloadlen);
+    }
+    else
+    {
+        m-&gt;c-&gt;will-&gt;payload = NULL;
+        m-&gt;c-&gt;will-&gt;payloadlen = 0;
+    }
+    m-&gt;c-&gt;will-&gt;qos = options-&gt;will-&gt;qos;
+    m-&gt;c-&gt;will-&gt;retained = options-&gt;will-&gt;retained;
+    m-&gt;c-&gt;will-&gt;topic = MQTTStrdup(options-&gt;will-&gt;topicName);
+}
+</code></pre><p>#if defined(OPENSSL)<br>    if (m-&gt;c-&gt;sslopts)<br>    {<br>        if (m-&gt;c-&gt;sslopts-&gt;trustStore)<br>            free((void<em>)m-&gt;c-&gt;sslopts-&gt;trustStore);<br>        if (m-&gt;c-&gt;sslopts-&gt;keyStore)<br>            free((void</em>)m-&gt;c-&gt;sslopts-&gt;keyStore);<br>        if (m-&gt;c-&gt;sslopts-&gt;privateKey)<br>            free((void<em>)m-&gt;c-&gt;sslopts-&gt;privateKey);<br>        if (m-&gt;c-&gt;sslopts-&gt;privateKeyPassword)<br>            free((void</em>)m-&gt;c-&gt;sslopts-&gt;privateKeyPassword);<br>        if (m-&gt;c-&gt;sslopts-&gt;enabledCipherSuites)<br>            free((void*)m-&gt;c-&gt;sslopts-&gt;enabledCipherSuites);<br>        free(m-&gt;c-&gt;sslopts);<br>        m-&gt;c-&gt;sslopts = NULL;<br>    }</p>
+<pre><code>if (options-&gt;struct_version != 0 &amp;&amp; options-&gt;ssl)
+{
+    m-&gt;c-&gt;sslopts = malloc(sizeof(MQTTClient_SSLOptions));
+    memset(m-&gt;c-&gt;sslopts, &apos;\0&apos;, sizeof(MQTTClient_SSLOptions));
+    if (options-&gt;ssl-&gt;trustStore)
+        m-&gt;c-&gt;sslopts-&gt;trustStore = MQTTStrdup(options-&gt;ssl-&gt;trustStore);
+    if (options-&gt;ssl-&gt;keyStore)
+        m-&gt;c-&gt;sslopts-&gt;keyStore = MQTTStrdup(options-&gt;ssl-&gt;keyStore);
+    if (options-&gt;ssl-&gt;privateKey)
+        m-&gt;c-&gt;sslopts-&gt;privateKey = MQTTStrdup(options-&gt;ssl-&gt;privateKey);
+    if (options-&gt;ssl-&gt;privateKeyPassword)
+        m-&gt;c-&gt;sslopts-&gt;privateKeyPassword = MQTTStrdup(options-&gt;ssl-&gt;privateKeyPassword);
+    if (options-&gt;ssl-&gt;enabledCipherSuites)
+        m-&gt;c-&gt;sslopts-&gt;enabledCipherSuites = MQTTStrdup(options-&gt;ssl-&gt;enabledCipherSuites);
+    m-&gt;c-&gt;sslopts-&gt;enableServerCertAuth = options-&gt;ssl-&gt;enableServerCertAuth;
+}
+</code></pre><p>#endif</p>
+<pre><code>m-&gt;c-&gt;username = options-&gt;username;
+m-&gt;c-&gt;password = options-&gt;password;
+if (options-&gt;password)
+    m-&gt;c-&gt;passwordlen = strlen(options-&gt;password);
+else if (options-&gt;struct_version &gt;= 5 &amp;&amp; options-&gt;binarypwd.data)
+{
+    m-&gt;c-&gt;password = options-&gt;binarypwd.data;
+    m-&gt;c-&gt;passwordlen = options-&gt;binarypwd.len;
+}
+m-&gt;c-&gt;retryInterval = options-&gt;retryInterval;
+
+if (options-&gt;struct_version &gt;= 3)
+    MQTTVersion = options-&gt;MQTTVersion;
+else
+    MQTTVersion = MQTTVERSION_DEFAULT;
+
+if (MQTTVersion == MQTTVERSION_DEFAULT)
+{
+    if ((rc = MQTTClient_connectURIVersion(handle, options, serverURI, 4, start, millisecsTimeout)) != MQTTCLIENT_SUCCESS)
+        rc = MQTTClient_connectURIVersion(handle, options, serverURI, 3, start, millisecsTimeout);
+}
+else
+    rc = MQTTClient_connectURIVersion(handle, options, serverURI, MQTTVersion, start, millisecsTimeout);
+
+FUNC_EXIT_RC(rc);
+return rc;
+</code></pre><p>}</p>
+<p>该函数前面部分在导入需要的参数，关键是MQTTClient_connectURIVersion函数</p>
+<p>static int MQTTClient_connectURIVersion(MQTTClient handle, MQTTClient_connectOptions<em> options, const char</em> serverURI, int MQTTVersion,<br>    START_TIME_TYPE start, long millisecsTimeout)<br>{<br>    MQTTClients* m = handle;<br>    int rc = SOCKET_ERROR;<br>    int sessionPresent = 0;</p>
+<pre><code>FUNC_ENTRY;
+if (m-&gt;ma &amp;&amp; !running)
+{
+    Thread_start(MQTTClient_run, handle);
+    if (MQTTClient_elapsed(start) &gt;= millisecsTimeout)
+    {
+        rc = SOCKET_ERROR;
+        goto exit;
+    }
+    MQTTClient_sleep(100L);
+}
+
+Log(TRACE_MIN, -1, &quot;Connecting to serverURI %s with MQTT version %d&quot;, serverURI, MQTTVersion);
+</code></pre><p>#if defined(OPENSSL)<br>    rc = MQTTProtocol_connect(serverURI, m-&gt;c, m-&gt;ssl, MQTTVersion);</p>
+<p>#else<br>    rc = MQTTProtocol_connect(serverURI, m-&gt;c, MQTTVersion);</p>
+<p>#endif<br>    if (rc == SOCKET_ERROR)<br>        goto exit;</p>
+<pre><code>if (m-&gt;c-&gt;connect_state == 0)
+{
+    rc = SOCKET_ERROR;
+    goto exit;
+}
+
+if (m-&gt;c-&gt;connect_state == 1) /* TCP connect started - wait for completion */
+{
+    Thread_unlock_mutex(mqttclient_mutex);
+    MQTTClient_waitfor(handle, CONNECT, &amp;rc, millisecsTimeout - MQTTClient_elapsed(start));
+    Thread_lock_mutex(mqttclient_mutex);
+    if (rc != 0)
+    {
+        rc = SOCKET_ERROR;
+        goto exit;
+    }
+</code></pre><p>#if defined(OPENSSL)<br>        if (m-&gt;ssl)<br>        {<br>            int port;<br>            char* hostname;<br>            int setSocketForSSLrc = 0;</p>
+<pre><code>    hostname = MQTTProtocol_addressPort(m-&gt;serverURI, &amp;port);
+    setSocketForSSLrc = SSLSocket_setSocketForSSL(&amp;m-&gt;c-&gt;net, m-&gt;c-&gt;sslopts, hostname);
+    if (hostname != m-&gt;serverURI)
+        free(hostname);
+
+    if (setSocketForSSLrc != MQTTCLIENT_SUCCESS)
+    {
+        if (m-&gt;c-&gt;session != NULL)
+            if ((rc = SSL_set_session(m-&gt;c-&gt;net.ssl, m-&gt;c-&gt;session)) != 1)
+                Log(TRACE_MIN, -1, &quot;Failed to set SSL session with stored data, non critical&quot;);
+        rc = SSLSocket_connect(m-&gt;c-&gt;net.ssl, m-&gt;c-&gt;net.socket);
+        if (rc == TCPSOCKET_INTERRUPTED)
+            m-&gt;c-&gt;connect_state = 2;  /* the connect is still in progress */
+        else if (rc == SSL_FATAL)
+        {
+            rc = SOCKET_ERROR;
+            goto exit;
+        }
+        else if (rc == 1)
+        {
+            rc = MQTTCLIENT_SUCCESS;
+            m-&gt;c-&gt;connect_state = 3;
+            if (MQTTPacket_send_connect(m-&gt;c, MQTTVersion) == SOCKET_ERROR)
+            {
+                rc = SOCKET_ERROR;
+                goto exit;
+            }
+            if (!m-&gt;c-&gt;cleansession &amp;&amp; m-&gt;c-&gt;session == NULL)
+                m-&gt;c-&gt;session = SSL_get1_session(m-&gt;c-&gt;net.ssl);
+        }
+    }
+    else
+    {
+        rc = SOCKET_ERROR;
+        goto exit;
+    }
+}
+else
+{
+</code></pre><p>#endif<br>            m-&gt;c-&gt;connect_state = 3; /<em> TCP connect completed, in which case send the MQTT connect packet </em>/<br>            if (MQTTPacket_send_connect(m-&gt;c, MQTTVersion) == SOCKET_ERROR)<br>            {<br>                rc = SOCKET_ERROR;<br>                goto exit;<br>            }</p>
+<p>#if defined(OPENSSL)<br>        }</p>
+<p>#endif<br>    }</p>
+<p>#if defined(OPENSSL)<br>    if (m-&gt;c-&gt;connect_state == 2) /<em> SSL connect sent - wait for completion </em>/<br>    {<br>        Thread_unlock_mutex(mqttclient_mutex);<br>        MQTTClient_waitfor(handle, CONNECT, &amp;rc, millisecsTimeout - MQTTClient_elapsed(start));<br>        Thread_lock_mutex(mqttclient_mutex);<br>        if (rc != 1)<br>        {<br>            rc = SOCKET_ERROR;<br>            goto exit;<br>        }<br>        if(!m-&gt;c-&gt;cleansession &amp;&amp; m-&gt;c-&gt;session == NULL)<br>            m-&gt;c-&gt;session = SSL_get1_session(m-&gt;c-&gt;net.ssl);<br>        m-&gt;c-&gt;connect_state = 3; /<em> TCP connect completed, in which case send the MQTT connect packet </em>/<br>        if (MQTTPacket_send_connect(m-&gt;c, MQTTVersion) == SOCKET_ERROR)<br>        {<br>            rc = SOCKET_ERROR;<br>            goto exit;<br>        }<br>    }</p>
+<p>#endif</p>
+<pre><code>if (m-&gt;c-&gt;connect_state == 3) /* MQTT connect sent - wait for CONNACK */
+{
+    MQTTPacket* pack = NULL;
+
+    Thread_unlock_mutex(mqttclient_mutex);
+    pack = MQTTClient_waitfor(handle, CONNACK, &amp;rc, millisecsTimeout - MQTTClient_elapsed(start));
+    Thread_lock_mutex(mqttclient_mutex);
+    if (pack == NULL)
+        rc = SOCKET_ERROR;
+    else
+    {
+        Connack* connack = (Connack*)pack;
+        Log(TRACE_PROTOCOL, 1, NULL, m-&gt;c-&gt;net.socket, m-&gt;c-&gt;clientID, connack-&gt;rc);
+        if ((rc = connack-&gt;rc) == MQTTCLIENT_SUCCESS)
+        {
+            m-&gt;c-&gt;connected = 1;
+            m-&gt;c-&gt;good = 1;
+            m-&gt;c-&gt;connect_state = 0;
+            if (MQTTVersion == 4)
+                sessionPresent = connack-&gt;flags.bits.sessionPresent;
+            if (m-&gt;c-&gt;cleansession)
+                rc = MQTTClient_cleanSession(m-&gt;c);
+            if (m-&gt;c-&gt;outboundMsgs-&gt;count &gt; 0)
+            {
+                ListElement* outcurrent = NULL;
+
+                while (ListNextElement(m-&gt;c-&gt;outboundMsgs, &amp;outcurrent))
+                {
+                    Messages* m = (Messages*)(outcurrent-&gt;content);
+                    m-&gt;lastTouch = 0;
+                }
+                MQTTProtocol_retry((time_t)0, 1, 1);
+                if (m-&gt;c-&gt;connected != 1)
+                    rc = MQTTCLIENT_DISCONNECTED;
+            }
+        }
+        free(connack);
+        m-&gt;pack = NULL;
+    }
+}
+</code></pre><p>exit:<br>    if (rc == MQTTCLIENT_SUCCESS)<br>    {<br>        if (options-&gt;struct_version == 4) /<em> means we have to fill out return values </em>/<br>        {<br>            options-&gt;returned.serverURI = serverURI;<br>            options-&gt;returned.MQTTVersion = MQTTVersion;<br>            options-&gt;returned.sessionPresent = sessionPresent;<br>        }<br>    }<br>    else<br>        MQTTClient_disconnect1(handle, 0, 0, (MQTTVersion == 3)); /<em> don’t want to call connection lost </em>/<br>    FUNC_EXIT_RC(rc);<br>  return rc;<br>}<br>这个函数里主要是调用了SSLSocket_setSocketForSSL和SSLSocket_connect</p>
 
       
     </div>
@@ -357,6 +571,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/08/Certificate/" rel="prev" title="Certificate">
+                Certificate <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -437,7 +655,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -450,7 +668,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

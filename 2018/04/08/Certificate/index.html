@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="MQTT;Certificate," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="用于记录嵌入式开发项目以及个人生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mark&#39;s Embedded Life">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="##那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作. ###SS">
+<meta name="keywords" content="MQTT;Certificate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Certificate">
+<meta property="og:url" content="http://yoursite.com/2018/04/08/Certificate/index.html">
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
-<meta property="og:description" content="用于记录嵌入式开发项目以及个人生活">
+<meta property="og:description" content="##那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作. ###SS">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-08T08:38:48.246Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mark&#39;s Embedded Life">
-<meta name="twitter:description" content="用于记录嵌入式开发项目以及个人生活">
+<meta name="twitter:title" content="Certificate">
+<meta name="twitter:description" content="##那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作. ###SS">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/08/Certificate/"/>
 
 
 
 
 
-  <title>Mark's Embedded Life</title>
+  <title>Certificate | Mark's Embedded Life</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/Certificate/" itemprop="url">Certificate</a></h1>
+          <h1 class="post-title" itemprop="name headline">Certificate</h1>
         
 
         <div class="post-meta">
@@ -301,9 +300,7 @@
       
 
       
-        
-          
-            <p>##那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)<br>之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作.</p>
+        <p>##那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)<br>之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作.</p>
 <p>###SSL<br>SSL - Secure Sockets Layer,现在应该叫”TLS”,但由于习惯问题,我们还是叫”SSL”比较多.http协议默认情况下是不加密内容的,这样就很可能在内容传播的时候被别人监听到,对于安全性要求较高的场合,必须要加密,https就是带加密的http协议,而https的加密是基于SSL的,它执行的是一个比较下层的加密,也就是说,在加密前,你的服务器程序在干嘛,加密后也一样在干嘛,不用动,这个加密对用户和开发者来说都是透明的.More:[维基百科]</p>
 <p>OpenSSL - 简单地说,OpenSSL是SSL的一个实现,SSL只是一种规范.理论上来说,SSL这种规范是安全的,目前的技术水平很难破解,但SSL的实现就可能有些漏洞,如著名的”心脏出血”.OpenSSL还提供了一大堆强大的工具软件,强大到90%我们都用不到.</p>
 <p>###证书标准<br>X.509 - 这是一种证书标准,主要定义了证书中应该包含哪些内容.其详情可以参考RFC5280,SSL使用的就是这种证书标准.</p>
@@ -326,8 +323,6 @@
 <p>用这命令生成一个csr: openssl req -newkey rsa:2048 -new -nodes -keyout my.key -out my.csr<br>把csr交给权威证书颁发机构,权威证书颁发机构对此进行签名,完成.保留好csr,当权威证书颁发机构颁发的证书过期的时候,你还可以用同样的csr来申请新的证书,key保持不变.</p>
 <p>####生成自签名的证书<br>openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem<br>在生成证书的过程中会要你填一堆的东西,其实真正要填的只有Common Name,通常填写你服务器的域名,如”yourcompany.com”,或者你服务器的IP地址,其它都可以留空的.<br>生产环境中还是不要使用自签的证书,否则浏览器会不认,或者如果你是企业应用的话能够强制让用户的浏览器接受你的自签证书也行.向权威机构要证书通常是要钱的,但现在也有免费的,仅仅需要一个简单的域名验证即可.有兴趣的话查查”沃通数字证书”.</p>
 
-          
-        
       
     </div>
     
@@ -342,507 +337,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/Paho_MQTT_C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/Paho_MQTT_C/" itemprop="url">Paho_MQTT_C</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:26:20+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/MQTT-Certificate/" rel="tag"># MQTT;Certificate</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>Paho_MQTT_C_Library库下几个比较重要的函数：<br>MQTTPacket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees);</span><br></pre></td></tr></table></figure></p>
-<p>SSLScoket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int SSLSocket_putdatas(SSL* ssl, int socket, char* buf0, size_t buf0len, int count, char** buffers, size_t* buflens, int* frees)</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/Paho_MQTT_C/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/08/Paho_MQTT_C/" rel="next" title="Paho_MQTT_C">
+                <i class="fa fa-chevron-left"></i> Paho_MQTT_C
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/Proxy-in-Git-Windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/Proxy-in-Git-Windows/" itemprop="url">Proxy_in_Git_Windows</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T13:47:20+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>git配置如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">'socks5://127.0.0.1:1080'</span></span><br><span class="line">git config --global https.proxy <span class="string">'socks5://127.0.0.1:1080'</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/MQTT-Project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/MQTT-Project/" itemprop="url">MQTT_Project</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T11:32:12+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="设计目的"><a href="#设计目的" class="headerlink" title="设计目的"></a>设计目的</h3><p>终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。</p>
-<ul>
-<li>实现设备以MQTT-tls协议和MQTT代理服务器broker通讯</li>
-<li>测试软件以MQTT-tls协议和MQTT代理服务器broker通讯</li>
-<li>设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/MQTT-Project/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/FirtBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/03/FirtBlog/" itemprop="url">破壳日</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T16:37:56+08:00">
-                2018-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>2018年4月3日，博客deploy成功，纪念一下。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -852,10 +376,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -863,6 +388,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1072,6 +601,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
