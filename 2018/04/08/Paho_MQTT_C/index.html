@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="用于记录嵌入式开发项目以及个人生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mark&#39;s Embedded Life">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="git配置如下：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ssl, int socket, char* bu">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paho_MQTT_C">
+<meta property="og:url" content="http://yoursite.com/2018/04/08/Paho_MQTT_C/index.html">
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
-<meta property="og:description" content="用于记录嵌入式开发项目以及个人生活">
+<meta property="og:description" content="git配置如下：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ssl, int socket, char* bu">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-08T06:26:32.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mark&#39;s Embedded Life">
-<meta name="twitter:description" content="用于记录嵌入式开发项目以及个人生活">
+<meta name="twitter:title" content="Paho_MQTT_C">
+<meta name="twitter:description" content="git配置如下：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ssl, int socket, char* bu">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/08/Paho_MQTT_C/"/>
 
 
 
 
 
-  <title>Mark's Embedded Life</title>
+  <title>Paho_MQTT_C | Mark's Embedded Life</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/Paho_MQTT_C/" itemprop="url">Paho_MQTT_C</a></h1>
+          <h1 class="post-title" itemprop="name headline">Paho_MQTT_C</h1>
         
 
         <div class="post-meta">
@@ -301,14 +300,10 @@
       
 
       
-        
-          
-            <p>git配置如下：<br>MQTTPacket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees);</span><br></pre></td></tr></table></figure></p>
+        <p>git配置如下：<br>MQTTPacket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees);</span><br></pre></td></tr></table></figure></p>
 <p>SSLScoket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int SSLSocket_putdatas(SSL* ssl, int socket, char* buf0, size_t buf0len, int count, char** buffers, size_t* buflens, int* frees)</span><br></pre></td></tr></table></figure></p>
 <p>SSLScoket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int SSLSocket_putdatas(SSL* ssl, int socket, char* buf0, size_t buf0len, int count, char** buffers, size_t* buflens, int* frees)</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">int MQTTClient_create(MQTTClient* handle, const char* serverURI, const char* clientId,</span><br><span class="line">		int persistence_type, void* persistence_context)</span><br><span class="line">&#123;</span><br><span class="line">	int rc = 0;</span><br><span class="line">	MQTTClients *m = NULL;</span><br><span class="line"></span><br><span class="line">	FUNC_ENTRY;</span><br><span class="line">	rc = Thread_lock_mutex(mqttclient_mutex);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (serverURI == NULL || clientId == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTCLIENT_NULL_PARAMETER;</span><br><span class="line">		goto <span class="built_in">exit</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!UTF8_validateString(clientId))</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTCLIENT_BAD_UTF8_STRING;</span><br><span class="line">		goto <span class="built_in">exit</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!initialized)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">#if defined(HEAP_H)</span></span><br><span class="line">			Heap_initialize();</span><br><span class="line">		<span class="comment">#endif</span></span><br><span class="line">		Log_initialize((Log_nameValue*)MQTTClient_getVersionInfo());</span><br><span class="line">		bstate-&gt;clients = ListInitialize();</span><br><span class="line">		Socket_outInitialize();</span><br><span class="line">		Socket_setWriteCompleteCallback(MQTTClient_writeComplete);</span><br><span class="line">		handles = ListInitialize();</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		SSLSocket_initialize();//SSLScoket初始化</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">		initialized = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	m = malloc(sizeof(MQTTClients));</span><br><span class="line">	*handle = m;</span><br><span class="line">	memset(m, <span class="string">'\0'</span>, sizeof(MQTTClients));</span><br><span class="line">	<span class="keyword">if</span> (strncmp(URI_TCP, serverURI, strlen(URI_TCP)) == 0)</span><br><span class="line">		serverURI += strlen(URI_TCP);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (strncmp(URI_SSL, serverURI, strlen(URI_SSL)) == 0)</span><br><span class="line">	&#123;</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		serverURI += strlen(URI_SSL);</span><br><span class="line">		m-&gt;ssl = 1;</span><br><span class="line"><span class="comment">#else</span></span><br><span class="line">        rc = MQTTCLIENT_SSL_NOT_SUPPORTED;</span><br><span class="line">        goto <span class="built_in">exit</span>;</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">	&#125;</span><br><span class="line">	m-&gt;serverURI = MQTTStrdup(serverURI);</span><br><span class="line">	ListAppend(handles, m, sizeof(MQTTClients));</span><br><span class="line"></span><br><span class="line">	m-&gt;c = malloc(sizeof(Clients));</span><br><span class="line">	memset(m-&gt;c, <span class="string">'\0'</span>, sizeof(Clients));</span><br><span class="line">	m-&gt;c-&gt;context = m;</span><br><span class="line">	m-&gt;c-&gt;outboundMsgs = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;inboundMsgs = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;messageQueue = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;clientID = MQTTStrdup(clientId);</span><br><span class="line">	m-&gt;connect_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;connack_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;suback_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;unsuback_sem = Thread_create_sem();</span><br><span class="line"></span><br><span class="line"><span class="comment">#if !defined(NO_PERSISTENCE)</span></span><br><span class="line">	rc = MQTTPersistence_create(&amp;(m-&gt;c-&gt;persistence), persistence_type, persistence_context);</span><br><span class="line">	<span class="keyword">if</span> (rc == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTPersistence_initialize(m-&gt;c, m-&gt;serverURI);</span><br><span class="line">		<span class="keyword">if</span> (rc == 0)</span><br><span class="line">			MQTTPersistence_restoreMessageQueue(m-&gt;c);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">	ListAppend(bstate-&gt;clients, m-&gt;c, sizeof(Clients) + 3*sizeof(List));</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span>:</span><br><span class="line">	Thread_unlock_mutex(mqttclient_mutex);</span><br><span class="line">	FUNC_EXIT_RC(rc);</span><br><span class="line">	<span class="built_in">return</span> rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -323,382 +318,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/Proxy-in-Git-Windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/Proxy-in-Git-Windows/" itemprop="url">Proxy_in_Git_Windows</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T13:47:20+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Git/" rel="tag"># Git</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>git配置如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">'socks5://127.0.0.1:1080'</span></span><br><span class="line">git config --global https.proxy <span class="string">'socks5://127.0.0.1:1080'</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/MQTT-Project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/MQTT-Project/" itemprop="url">MQTT_Project</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T11:32:12+08:00">
-                2018-04-08
-              </time>
+              <a href="/2018/04/08/Proxy-in-Git-Windows/" rel="next" title="Proxy_in_Git_Windows">
+                <i class="fa fa-chevron-left"></i> Proxy_in_Git_Windows
+              </a>
             
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="设计目的"><a href="#设计目的" class="headerlink" title="设计目的"></a>设计目的</h3><p>终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。</p>
-<ul>
-<li>实现设备以MQTT-tls协议和MQTT代理服务器broker通讯</li>
-<li>测试软件以MQTT-tls协议和MQTT代理服务器broker通讯</li>
-<li>设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/MQTT-Project/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/FirtBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's Embedded Life">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/03/FirtBlog/" itemprop="url">破壳日</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T16:37:56+08:00">
-                2018-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>2018年4月3日，博客deploy成功，纪念一下。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -708,10 +357,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -719,6 +369,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -928,6 +582,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
