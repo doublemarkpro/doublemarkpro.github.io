@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
 <meta property="og:description" content="那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)此文大部分转自于http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T08:41:31.742Z">
+<meta property="og:updated_time" content="2018-04-08T08:42:14.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Certificate">
 <meta name="twitter:description" content="那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)此文大部分转自于http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感">
@@ -300,7 +300,7 @@
       
 
       
-        <h2 id="那些证书相关的玩意儿-SSL-X-509-PEM-DER-CRT-CER-KEY-CSR-P12等"><a href="#那些证书相关的玩意儿-SSL-X-509-PEM-DER-CRT-CER-KEY-CSR-P12等" class="headerlink" title="那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)"></a>那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)</h2><p>此文大部分转自于<a href="http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。" target="_blank" rel="noopener">http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。</a><br>之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作.</p>
+        <h2 id="那些证书相关的玩意儿-SSL-X-509-PEM-DER-CRT-CER-KEY-CSR-P12等"><a href="#那些证书相关的玩意儿-SSL-X-509-PEM-DER-CRT-CER-KEY-CSR-P12等" class="headerlink" title="那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)"></a>那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)</h2><p>此文大部分转自于<a href="http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。" target="_blank" rel="noopener">http://www.cnblogs.com/guogangj/p/4118605.html作者『蒋国纲』，感谢。</a><br>之前没接触过证书加密的话,对证书相关的这些概念真是感觉挺棘手的,因为一下子来了一大堆新名词,看起来像是另一个领域的东西,而不是我们所熟悉的编程领域的那些东西,起码我个人感觉如此,且很长时间都没怎么搞懂.写这篇文章的目的就是为了理理清这些概念,搞清楚它们的含义及关联,还有一些基本操作.<br><a id="more"></a> </p>
 <h3 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h3><p>SSL - Secure Sockets Layer,现在应该叫”TLS”,但由于习惯问题,我们还是叫”SSL”比较多.http协议默认情况下是不加密内容的,这样就很可能在内容传播的时候被别人监听到,对于安全性要求较高的场合,必须要加密,https就是带加密的http协议,而https的加密是基于SSL的,它执行的是一个比较下层的加密,也就是说,在加密前,你的服务器程序在干嘛,加密后也一样在干嘛,不用动,这个加密对用户和开发者来说都是透明的.More:[维基百科]</p>
 <p>OpenSSL - 简单地说,OpenSSL是SSL的一个实现,SSL只是一种规范.理论上来说,SSL这种规范是安全的,目前的技术水平很难破解,但SSL的实现就可能有些漏洞,如著名的”心脏出血”.OpenSSL还提供了一大堆强大的工具软件,强大到90%我们都用不到.</p>
 <h3 id="证书标准"><a href="#证书标准" class="headerlink" title="证书标准"></a>证书标准</h3><p>X.509 - 这是一种证书标准,主要定义了证书中应该包含哪些内容.其详情可以参考RFC5280,SSL使用的就是这种证书标准.</p>
