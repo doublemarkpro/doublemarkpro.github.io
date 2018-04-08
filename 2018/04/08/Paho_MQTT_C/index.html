@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="MQTT;Paho," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="Paho_MQTT_C_Library库下几个比较重要的函数：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ss">
-<meta name="keywords" content="Git">
+<meta name="keywords" content="MQTT;Paho">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paho_MQTT_C">
 <meta property="og:url" content="http://yoursite.com/2018/04/08/Paho_MQTT_C/index.html">
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
 <meta property="og:description" content="Paho_MQTT_C_Library库下几个比较重要的函数：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ss">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T06:28:32.888Z">
+<meta property="og:updated_time" content="2018-04-08T07:22:29.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paho_MQTT_C">
 <meta name="twitter:description" content="Paho_MQTT_C_Library库下几个比较重要的函数：MQTTPacket.c1int MQTTPacket_sends(networkHandles* net, Header header, int count, char** buffers, size_t* buflens, int* frees); SSLScoket.c1int SSLSocket_putdatas(SSL* ss">
@@ -304,7 +304,21 @@
 <p>SSLScoket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int SSLSocket_putdatas(SSL* ssl, int socket, char* buf0, size_t buf0len, int count, char** buffers, size_t* buflens, int* frees)</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a> 
 <p>SSLScoket.c<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int SSLSocket_putdatas(SSL* ssl, int socket, char* buf0, size_t buf0len, int count, char** buffers, size_t* buflens, int* frees)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">int MQTTClient_create(MQTTClient* handle, const char* serverURI, const char* clientId,</span><br><span class="line">		int persistence_type, void* persistence_context)</span><br><span class="line">&#123;</span><br><span class="line">	int rc = 0;</span><br><span class="line">	MQTTClients *m = NULL;</span><br><span class="line"></span><br><span class="line">	FUNC_ENTRY;</span><br><span class="line">	rc = Thread_lock_mutex(mqttclient_mutex);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (serverURI == NULL || clientId == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTCLIENT_NULL_PARAMETER;</span><br><span class="line">		goto <span class="built_in">exit</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!UTF8_validateString(clientId))</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTCLIENT_BAD_UTF8_STRING;</span><br><span class="line">		goto <span class="built_in">exit</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!initialized)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">#if defined(HEAP_H)</span></span><br><span class="line">			Heap_initialize();</span><br><span class="line">		<span class="comment">#endif</span></span><br><span class="line">		Log_initialize((Log_nameValue*)MQTTClient_getVersionInfo());</span><br><span class="line">		bstate-&gt;clients = ListInitialize();</span><br><span class="line">		Socket_outInitialize();</span><br><span class="line">		Socket_setWriteCompleteCallback(MQTTClient_writeComplete);</span><br><span class="line">		handles = ListInitialize();</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		SSLSocket_initialize();//SSLScoket初始化</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">		initialized = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	m = malloc(sizeof(MQTTClients));</span><br><span class="line">	*handle = m;</span><br><span class="line">	memset(m, <span class="string">'\0'</span>, sizeof(MQTTClients));</span><br><span class="line">	<span class="keyword">if</span> (strncmp(URI_TCP, serverURI, strlen(URI_TCP)) == 0)</span><br><span class="line">		serverURI += strlen(URI_TCP);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (strncmp(URI_SSL, serverURI, strlen(URI_SSL)) == 0)</span><br><span class="line">	&#123;</span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		serverURI += strlen(URI_SSL);</span><br><span class="line">		m-&gt;ssl = 1;</span><br><span class="line"><span class="comment">#else</span></span><br><span class="line">        rc = MQTTCLIENT_SSL_NOT_SUPPORTED;</span><br><span class="line">        goto <span class="built_in">exit</span>;</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">	&#125;</span><br><span class="line">	m-&gt;serverURI = MQTTStrdup(serverURI);</span><br><span class="line">	ListAppend(handles, m, sizeof(MQTTClients));</span><br><span class="line"></span><br><span class="line">	m-&gt;c = malloc(sizeof(Clients));</span><br><span class="line">	memset(m-&gt;c, <span class="string">'\0'</span>, sizeof(Clients));</span><br><span class="line">	m-&gt;c-&gt;context = m;</span><br><span class="line">	m-&gt;c-&gt;outboundMsgs = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;inboundMsgs = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;messageQueue = ListInitialize();</span><br><span class="line">	m-&gt;c-&gt;clientID = MQTTStrdup(clientId);</span><br><span class="line">	m-&gt;connect_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;connack_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;suback_sem = Thread_create_sem();</span><br><span class="line">	m-&gt;unsuback_sem = Thread_create_sem();</span><br><span class="line"></span><br><span class="line"><span class="comment">#if !defined(NO_PERSISTENCE)</span></span><br><span class="line">	rc = MQTTPersistence_create(&amp;(m-&gt;c-&gt;persistence), persistence_type, persistence_context);</span><br><span class="line">	<span class="keyword">if</span> (rc == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		rc = MQTTPersistence_initialize(m-&gt;c, m-&gt;serverURI);</span><br><span class="line">		<span class="keyword">if</span> (rc == 0)</span><br><span class="line">			MQTTPersistence_restoreMessageQueue(m-&gt;c);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">	ListAppend(bstate-&gt;clients, m-&gt;c, sizeof(Clients) + 3*sizeof(List));</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span>:</span><br><span class="line">	Thread_unlock_mutex(mqttclient_mutex);</span><br><span class="line">	FUNC_EXIT_RC(rc);</span><br><span class="line">	<span class="built_in">return</span> rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="移植过程"><a href="#移植过程" class="headerlink" title="移植过程"></a>移植过程</h2><p>首先每个工程里都包含MQTTClient_create函数，若定义了OPENSSL宏定义，则编译相对应的SSL部分函数以及变量。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MQTTClient_create(MQTTClient* handle, const char* serverURI, const char* clientId, int persistence_type, void* persistence_context)</span><br></pre></td></tr></table></figure></p>
+<p>例如在MQTTClient.c里，<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		SSLSocket_initialize(); //初始化SSLSocket</span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">		serverURI += strlen(URI_SSL);//增加URI前导名<span class="string">"ssl://"</span></span><br><span class="line">		m-&gt;ssl = 1;</span><br><span class="line"><span class="comment">#else</span></span><br><span class="line">        rc = MQTTCLIENT_SSL_NOT_SUPPORTED;</span><br><span class="line">        goto <span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在MQTTPacket.c里，发送函数MQTTPacket_sends中也是如此，如果定义了OPENSSL则调用SSL的发送函数，否则不加SSL发送。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#if defined(OPENSSL)</span></span><br><span class="line">	<span class="keyword">if</span> (net-&gt;ssl)</span><br><span class="line">		rc = SSLSocket_putdatas(net-&gt;ssl, net-&gt;socket, buf, buf0len, count, buffers, buflens, frees);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line"><span class="comment">#endif</span></span><br><span class="line">		rc = Socket_putdatas(net-&gt;socket, buf, buf0len, count, buffers, buflens, frees);</span><br></pre></td></tr></table></figure></p>
+<p>这个结构里定义了MQTTClient_SSLOptions所需要的几个变量<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">	/** The eyecatcher <span class="keyword">for</span> this structure.  Must be MQTS */</span><br><span class="line">	char struct_id[4];</span><br><span class="line">	/** The version number of this structure.  Must be 0 */</span><br><span class="line">	int struct_version;</span><br><span class="line"></span><br><span class="line">	/** The file <span class="keyword">in</span> PEM format containing the public digital certificates trusted by the client. */</span><br><span class="line">	const char* trustStore;</span><br><span class="line"></span><br><span class="line">	/** The file <span class="keyword">in</span> PEM format containing the public certificate chain of the client. It may also include</span><br><span class="line">	* the client<span class="string">'s private key.</span></span><br><span class="line"><span class="string">	*/</span></span><br><span class="line"><span class="string">	const char* keyStore;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	/** If not included in the sslKeyStore, this setting points to the file in PEM format containing</span></span><br><span class="line"><span class="string">	* the client'</span>s private key.</span><br><span class="line">	*/</span><br><span class="line">	const char* privateKey;</span><br><span class="line">	/** The password to load the client<span class="string">'s privateKey if encrypted. */</span></span><br><span class="line"><span class="string">	const char* privateKeyPassword;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	/**</span></span><br><span class="line"><span class="string">	* The list of cipher suites that the client will present to the server during the SSL handshake. For a</span></span><br><span class="line"><span class="string">	* full explanation of the cipher list format, please see the OpenSSL on-line documentation:</span></span><br><span class="line"><span class="string">	* http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT</span></span><br><span class="line"><span class="string">	* If this setting is ommitted, its default value will be "ALL", that is, all the cipher suites -excluding</span></span><br><span class="line"><span class="string">	* those offering no encryption- will be considered.</span></span><br><span class="line"><span class="string">	* This setting can be used to set an SSL anonymous connection ("aNULL" string value, for instance).</span></span><br><span class="line"><span class="string">	*/</span></span><br><span class="line"><span class="string">	const char* enabledCipherSuites;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /** True/False option to enable verification of the server certificate **/</span></span><br><span class="line"><span class="string">    int enableServerCertAuth;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125; MQTTClient_SSLOptions;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>struct_id必须是MQTS字符</li>
+<li>struct_version必须是0</li>
+<li>trustStore是公钥，PEM格式</li>
+<li>keyStore是公钥密码？PEM格式</li>
+<li>privateKey是私钥，如果sslKeyStore没有</li>
+<li>privateKeyPassword是私钥的密码</li>
+<li>enabledCipherSuites是否启用匿名连接</li>
+<li>enableServerCertAuth是否启用服务器证书验证</li>
+</ul>
+
       
     </div>
     
@@ -321,7 +335,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/MQTT-Paho/" rel="tag"># MQTT;Paho</a>
           
         </div>
       
@@ -394,8 +408,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,7 +450,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -450,6 +473,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#移植过程"><span class="nav-number">1.</span> <span class="nav-text">移植过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
