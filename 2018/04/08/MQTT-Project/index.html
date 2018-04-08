@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://i65.tinypic.com/2z6b01u.png">
 <meta property="og:image" content="http://i68.tinypic.com/14llus1.png">
 <meta property="og:image" content="http://i66.tinypic.com/986fxe.png">
-<meta property="og:updated_time" content="2018-04-08T05:26:50.972Z">
+<meta property="og:updated_time" content="2018-04-08T05:28:11.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MQTT_Project">
 <meta name="twitter:description" content="终端采用开放物联网MQTT-tls协议，实现安全认证和传输、订阅和发布。投标参与方应提交MQTT通信相关的参数文件，并提前完成配置。  实现设备以MQTT-tls协议和MQTT代理服务器broker通讯 测试软件以MQTT-tls协议和MQTT代理服务器broker通讯 设备和测试软件通过发布订阅topic和自定的通讯协议互相通讯  设计目的终端采用开放物联网MQTT-tls协议，实现安全认证和传">
@@ -348,22 +348,21 @@
 <hr>
 <p>Warning:<br>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore -destkeystore keystore -deststoretype pkcs12” 迁移到行业标准格式 PKCS12。</p>
 </blockquote>
-<pre><code>表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。
-使用提示的命令直接生成jks格式的文件
-</code></pre><blockquote>
+<p>表明这个keystore文件有一个alias别名为broker的证书，有效期到2028年4月5日。采用RSA加密方法加密。<br>使用提示的命令直接生成jks格式的文件</p>
+<blockquote>
 <p>keytool -importkeystore -srckeystore keystore -destkeystore keystore.jks -deststoretype jks    </p>
 </blockquote>
-<pre><code>要生成密钥库，请在命令行提示符处输入以下命令：
-</code></pre><blockquote>
-<p>keytool -genkey -alias broker -keyalg RSA -keypass password -storepass password -keystore keystore.jks<br>    其中，password 是访问密钥库所需的密码。</p>
+<p>要生成密钥库，请在命令行提示符处输入以下命令：</p>
+<blockquote>
+<p>keytool -genkey -alias broker -keyalg RSA -keypass password -storepass password -keystore keystore.jks<br>其中，password 是访问密钥库所需的密码。</p>
 </blockquote>
-<pre><code>要导出服务器证书，请在命令行提示符处输入以下命令：
-</code></pre><blockquote>
-<p>keytool -export -alias broker -file server.cer -storepass password -keystore keystore.jks<br>    其中，password 是您创建密钥库时指定的密码。</p>
+<p>要导出服务器证书，请在命令行提示符处输入以下命令：</p>
+<blockquote>
+<p>keytool -export -alias broker -file server.cer -storepass password -keystore keystore.jks<br>其中，password 是您创建密钥库时指定的密码。</p>
 </blockquote>
-<pre><code>要创建信任库，请在命令行提示符处输入以下命令：
-</code></pre><blockquote>
-<p>keytool -import -alias broker -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>    其中，password 是您创建密钥库时指定的密码。<br>    据此，共生成了3个文件：</p>
+<p>要创建信任库，请在命令行提示符处输入以下命令：</p>
+<blockquote>
+<p>keytool -import -alias broker -v -trustcacerts -file server.cer -keypass password -storepass password -keystore cacerts.jks<br>其中，password 是您创建密钥库时指定的密码。<br>据此，共生成了3个文件：</p>
 <ul>
 <li>keystore-&gt;keystore.jks</li>
 <li>keystore.jks-&gt;server.cer</li>
@@ -371,8 +370,8 @@
 </ul>
 </blockquote>
 <h5 id="建立TLS连接"><a href="#建立TLS连接" class="headerlink" title="建立TLS连接"></a>建立TLS连接</h5><p>  使用MQTT-spy软件，该软件提供java编译版本，可以在安装java的机器上使用。<br>  <img src="http://i65.tinypic.com/2z6b01u.png" alt="Server" title="MQTT-spy设置界面"><br>  连接成功后分别发布和订阅同一主题，测试成功。<br>  <img src="http://i68.tinypic.com/14llus1.png" alt="Server" title="MQTT-spy测试成功界面"><br>  在apollo的127.0.0.1:61613的web界面查看已连接的客户端。<br>  <img src="http://i66.tinypic.com/986fxe.png" alt="Server" title="Apollo的web界面"></p>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><pre><code>至此，整个MQTT-TLS的测试流程介绍完毕，下面该利用编译好的各类库编写代码实现应用层的功能了。
-</code></pre>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>  至此，整个MQTT-TLS的测试流程介绍完毕，下面该利用编译好的各类库编写代码实现应用层的功能了。</p>
+
       
     </div>
     
