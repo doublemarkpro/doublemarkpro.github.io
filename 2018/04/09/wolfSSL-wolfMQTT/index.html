@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mark&#39;s Embedded Life">
 <meta property="og:description" content="新项目要求底端MSP430设备使用MQTT-TLS加密方式传输，Google后搜到一个叫做wolfSSL和wolfMQTT的开源库。 wolfSSL &amp;amp; wolfMQTT 介绍wolfSSL Embedded SSL Library简介wolfSSL嵌入式SSL库是一个用ANSI C编写的轻量级SSL / TLS库，针对嵌入式，RTOS和资源受限的环境 - 主要是因为它的体积小，速度快，功">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-09T01:27:11.477Z">
+<meta property="og:updated_time" content="2018-04-09T02:18:21.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wolfSSL &amp; wolfMQTT">
 <meta name="twitter:description" content="新项目要求底端MSP430设备使用MQTT-TLS加密方式传输，Google后搜到一个叫做wolfSSL和wolfMQTT的开源库。 wolfSSL &amp;amp; wolfMQTT 介绍wolfSSL Embedded SSL Library简介wolfSSL嵌入式SSL库是一个用ANSI C编写的轻量级SSL / TLS库，针对嵌入式，RTOS和资源受限的环境 - 主要是因为它的体积小，速度快，功">
@@ -305,12 +305,73 @@
 <ul>
 <li>小尺寸：20-100kB</li>
 <li>运行时内存：1-36kB</li>
-<li>比OpenSSL小20倍<a id="more"></a> 
-<h4 id="平台和语言支持"><a href="#平台和语言支持" class="headerlink" title="平台和语言支持"></a>平台和语言支持</h4>wolfSSL是为了最大的可移植性而构建的，并且通常在新平台上很容易编译<br>wolfSSL支持将C编程语言作为主接口。它还支持其他几种主机语言，包括Java（wolfSSL JNI），C＃（wolfSSL C＃），Python以及PHP和Perl（通过swig接口）。</li>
+<li>比OpenSSL小20倍<a id="more"></a>
+</li>
 </ul>
+<h4 id="平台和语言支持"><a href="#平台和语言支持" class="headerlink" title="平台和语言支持"></a>平台和语言支持</h4><p>wolfSSL是为了最大的可移植性而构建的，并且通常在新平台上很容易编译<br>wolfSSL支持将C编程语言作为主接口。它还支持其他几种主机语言，包括Java（wolfSSL JNI），C＃（wolfSSL C＃），Python以及PHP和Perl（通过swig接口）。</p>
 <h4 id="支持的芯片制造商"><a href="#支持的芯片制造商" class="headerlink" title="支持的芯片制造商"></a>支持的芯片制造商</h4><p>wolfSSL有芯片，包括ARM，英特尔，摩托罗拉，mbed，支持NXP /飞思卡尔，Microchip的（PIC32）/ Atmel公司，意法半导体（STM32F2 / F4），亚德诺半导体，德州仪器，以及更多</p>
-<h2 id="wolfMQTT编译"><a href="#wolfMQTT编译" class="headerlink" title="wolfMQTT编译"></a>wolfMQTT编译</h2><p>wolfMQTT编译需要先编译wolfSSL。<br>参考地址<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.wolfssl.com/docs/visual-studio/</span><br></pre></td></tr></table></figure></p>
+<h3 id="wolfMQTT-Client-Library"><a href="#wolfMQTT-Client-Library" class="headerlink" title="wolfMQTT Client Library"></a>wolfMQTT Client Library</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>MQTT（消息队列遥测传输）是一种轻量级的开放式消息传递协议，专为M2M（机器对机器）和物联网（物联网）等需要小代码占用空间的受限环境而开发。MQTT基于发布消息和订阅主题的Pub / Sub消息传递原则。该协议有效地打包消息以尽量减少开销。MQTT规范建议TLS作为传输选项来保护使用端口8883（secure-mqtt）的协议，因为MQTT协议本身不提供安全性。受限设备可以从使用TLS会话恢复来减少重新连接成本中受益。</p>
+<p>wolfMQTT库是用C语言编写的用于嵌入式应用的MQTT的客户端实现。它通过wolfSSL库支持SSL / TLS。由此可以提供MQTT协议缺乏的安全性。wolfMQTT建立在多平台，太空良知和可扩展的基础之上。它支持所有数据包类型，所有服务质量（QoS）级别0-2，并支持使用wolfSSL库的SSL / TLS。此实现基于MQTT v3.1.1规范。</p>
+<ul>
+<li>小尺寸：3.6kB</li>
+<li>能够利用轻量级wolfSSL嵌入式SSL / TLS库</li>
+<li>用原生C89编写</li>
+<li>最小的外部依赖性</li>
+<li>少于1200行代码</li>
+</ul>
+<h4 id="支持的芯片制造商-1"><a href="#支持的芯片制造商-1" class="headerlink" title="支持的芯片制造商"></a>支持的芯片制造商</h4><p>wolfSSL有芯片，包括ARM，英特尔，摩托罗拉，mbed，支持NXP /飞思卡尔，Microchip的（PIC32）/ Atmel公司，意法半导体（STM32F2 / F4），亚德诺半导体，德州仪器，以及更多</p>
+<h2 id="wolfMQTT编译"><a href="#wolfMQTT编译" class="headerlink" title="wolfMQTT编译"></a>wolfMQTT编译</h2><p>wolfMQTT编译需要先编译wolfSSL。</p>
+<h3 id="windows平台编译"><a href="#windows平台编译" class="headerlink" title="windows平台编译"></a>windows平台编译</h3><p>本指南为开发人员和工程师将wolfSSL轻量级SSL / TLS库移植到新的嵌入式平台，操作系统或传输介质（TCP / IP，蓝牙等）提供了参考。它调用wolfSSL代码库中的区域，在移植wolfSSL时通常需要修改。它应该被认为是一个“指南”，因此它是一个不断发展的工作。</p>
+<p>参考地址<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.wolfssl.com/docs/visual-studio/</span><br></pre></td></tr></table></figure></p>
 <p>需要配置为DLL_Release且平台为Win32，会在DLL_Release文件夹下生成.dll和.lib的动态库和静态库文件<br>将这两个文件拷贝到MQTT的目录下，再打开MQTT工程编译即可</p>
+<h3 id="嵌入式平台编译"><a href="#嵌入式平台编译" class="headerlink" title="嵌入式平台编译"></a>嵌入式平台编译</h3><p>参考地址wolfSSL移植指南（PDF）<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.wolfssl.com/docs/porting-guide/</span><br></pre></td></tr></table></figure></p>
+<p>这是用C语言编写的用于嵌入式应用的MQTT客户端的实现，它通过wolfSSL库支持SSL / TLS。 这个库建立在多平台，空间良知和可扩展的基础之上。 与wolfSSL集成以提供TLS支持。</p>
+<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p>这个库包含三个部件.</p>
+<h5 id="1-mqtt-client"><a href="#1-mqtt-client" class="headerlink" title="1. mqtt_client"></a>1. mqtt_client</h5><p>这是MQTT客户端的顶级应用程序接口所在的位置。</p>
+<ul>
+<li><code>int MqttClient_Init(MqttClient *client, MqttNet *net, MqttMsgCb msg_cb, byte *tx_buf, int tx_buf_len, byte *rx_buf, int rx_buf_len, int cmd_timeout_ms);</code></li>
+</ul>
+<p>These API’s are blocking on <code>MqttNet.read</code> until error/timeout (<code>cmd_timeout_ms</code>):</p>
+<ul>
+<li><code>int MqttClient_Connect(MqttClient *client, MqttConnect *connect);</code></li>
+<li><code>int MqttClient_Publish(MqttClient *client, MqttPublish *publish);</code></li>
+<li><code>int MqttClient_Subscribe(MqttClient *client, MqttSubscribe *subscribe);</code></li>
+<li><code>int MqttClient_Unsubscribe(MqttClient *client, MqttUnsubscribe *unsubscribe);</code></li>
+<li><code>int MqttClient_Ping(MqttClient *client);</code></li>
+<li><code>int MqttClient_Disconnect(MqttClient *client);</code></li>
+</ul>
+<p>这个函数阻止等待一个新的发布消息到达<code>timeout_ms</code>的最大持续时间。</p>
+<ul>
+<li><code>int MqttClient_WaitMessage(MqttClient *client, MqttMessage *message, int timeout_ms);</code></li>
+</ul>
+<p>这些是包装MqttNet回调并处理WolfSSL TLS的网络连接/断开接口：</p>
+<ul>
+<li><code>int MqttClient_NetConnect(MqttClient *client, const char* host, word16 port, int timeout_ms, int use_tls, MqttTlsCb cb);</code></li>
+<li><code>int MqttClient_NetDisconnect(MqttClient *client);</code></li>
+</ul>
+<p>帮助函数:</p>
+<ul>
+<li><code>const char* MqttClient_ReturnCodeToString(int return_code);</code></li>
+</ul>
+<h5 id="2-mqtt-packet"><a href="#2-mqtt-packet" class="headerlink" title="2. mqtt_packet"></a>2. mqtt_packet</h5><p>这是处理所有数据包编码/解码的地方。</p>
+<p>头部包含MQTT数据包结构，用于：</p>
+<ul>
+<li>Connect: <code>MqttConnect</code></li>
+<li>Publish / Message: <code>MqttPublish</code> / <code>MqttMessage</code> (they are the same)</li>
+<li>Subscribe: <code>MqttSubscribe</code></li>
+<li>Unsubscribe: <code>MqttUnsubscribe</code></li>
+</ul>
+<h5 id="3-mqtt-socket"><a href="#3-mqtt-socket" class="headerlink" title="3. mqtt_socket"></a>3. mqtt_socket</h5><p>这是传输套接字可选地包装TLS并使用<code>MqttNet</code>回调进行平台特定网络处理的地方。<br>头部包含用于网络回调和上下文的MQTT网络结构<code>MqttNet</code>。</p>
+<h4 id="移植实施"><a href="#移植实施" class="headerlink" title="移植实施"></a>移植实施</h4><p>以下是创建自己的项目移植步骤.</p>
+<ol>
+<li>Create network callback functions for Connect, Read, Write and Disconnect. See <code>examples/mqttnet.c</code> and <code>examples/mqttnet.h</code>.</li>
+<li>Define the callback functions and context in a <code>MqttNet</code> structure.</li>
+<li>Call <code>MqttClient_Init</code> passing in a <code>MqttClient</code> structure pointer, <code>MqttNet</code> structure pointer, <code>MqttMsgCb</code> function pointer, TX/RX buffers with maximum length and command timeout.</li>
+<li>Call <code>MqttClient_NetConnect</code> to connect to broker over network. If <code>use_tls</code> is non-zero value then it will perform a TLS connection. The TLS callback <code>MqttTlsCb</code> should be defined for wolfSSL certificate configuration.</li>
+<li>Call <code>MqttClient_Connect</code> passing pointer to <code>MqttConnect</code> structure to send MQTT connect command and wait for Connect Ack.</li>
+<li>Call <code>MqttClient_Subscribe</code> passing pointer to <code>MqttSubscribe</code> structure to send MQTT Subscribe command and wait for Subscribe Ack (depending on QoS level).</li>
+<li>Call <code>MqttClient_WaitMessage</code> passing pointer to <code>MqttMessage</code> to wait for incoming MQTT Publish message.</li>
+</ol>
 
       
     </div>
@@ -476,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wolfSSL-amp-wolfMQTT-介绍"><span class="nav-number">1.</span> <span class="nav-text">wolfSSL &amp; wolfMQTT 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wolfSSL-Embedded-SSL-Library"><span class="nav-number">1.1.</span> <span class="nav-text">wolfSSL Embedded SSL Library</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平台和语言支持"><span class="nav-number">1.1.2.</span> <span class="nav-text">平台和语言支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持的芯片制造商"><span class="nav-number">1.1.3.</span> <span class="nav-text">支持的芯片制造商</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wolfMQTT编译"><span class="nav-number">2.</span> <span class="nav-text">wolfMQTT编译</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wolfSSL-amp-wolfMQTT-介绍"><span class="nav-number">1.</span> <span class="nav-text">wolfSSL &amp; wolfMQTT 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wolfSSL-Embedded-SSL-Library"><span class="nav-number">1.1.</span> <span class="nav-text">wolfSSL Embedded SSL Library</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平台和语言支持"><span class="nav-number">1.1.2.</span> <span class="nav-text">平台和语言支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持的芯片制造商"><span class="nav-number">1.1.3.</span> <span class="nav-text">支持的芯片制造商</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wolfMQTT-Client-Library"><span class="nav-number">1.2.</span> <span class="nav-text">wolfMQTT Client Library</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持的芯片制造商-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">支持的芯片制造商</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wolfMQTT编译"><span class="nav-number">2.</span> <span class="nav-text">wolfMQTT编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows平台编译"><span class="nav-number">2.1.</span> <span class="nav-text">windows平台编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入式平台编译"><span class="nav-number">2.2.</span> <span class="nav-text">嵌入式平台编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.2.1.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-mqtt-client"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">1. mqtt_client</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-mqtt-packet"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">2. mqtt_packet</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-mqtt-socket"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">3. mqtt_socket</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移植实施"><span class="nav-number">2.2.2.</span> <span class="nav-text">移植实施</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
